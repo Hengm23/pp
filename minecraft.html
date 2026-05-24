@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Minecraft — воплоти фантазию в реальность</title>
+    <!-- Шрифты и иконки -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0c10;
+            color: #e0e0e0;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2a2f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b8f4c;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #6bff7e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-sub {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #9aaebf;
+            max-width: 700px;
+            margin: 0 auto 56px auto;
+        }
+
+        /* Header */
+        .navbar {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 800;
+        }
+        .logo i {
+            font-size: 2.2rem;
+            color: #5fdb6f;
+            text-shadow: 0 0 5px #2e7d32;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #6eff86;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 20% 30%, #14200f, #030504);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "⛏️";
+            font-size: 400px;
+            opacity: 0.03;
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            pointer-events: none;
+            transform: rotate(15deg);
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-title {
+            font-size: 3.8rem;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+        .hero-title span {
+            color: #6eff86;
+            text-shadow: 0 0 6px #1b5e20;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            margin: 24px 0 32px;
+            color: #cbd5e1;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #6eff86;
+        }
+        .pixel-art {
+            background: rgba(30, 30, 40, 0.3);
+            border-radius: 36px;
+            backdrop-filter: blur(4px);
+            padding: 16px;
+            border: 1px solid #3e5f3c;
+            text-align: center;
+        }
+        .pixel-art i {
+            font-size: 120px;
+            color: #6b8c5c;
+            filter: drop-shadow(0 0 10px #406e2d);
+        }
+
+        /* Карточки особенностей */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: rgba(22, 28, 25, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid #2b4635;
+            transition: 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fdb6f;
+            background: rgba(34, 46, 38, 0.9);
+        }
+        .feature-icon {
+            font-size: 3.2rem;
+            color: #6eff86;
+            margin-bottom: 24px;
+        }
+        .feature-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+        }
+
+        /* Геймплей */
+        .gameplay-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .game-card {
+            background: #11181c;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid #2f5340;
+            transition: 0.2s;
+        }
+        .game-card:hover {
+            border-color: #6eff86;
+        }
+        .game-img {
+            background: #1b3327;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .game-card h4 {
+            font-size: 1.5rem;
+            margin: 18px 20px 8px;
+        }
+        .game-card p {
+            margin: 0 20px 20px;
+            color: #b3c7d8;
+        }
+
+        /* ========== КАРУСЕЛЬ С 10 КАРТИНКАМИ (ВСТРОЕННЫМИ) ========== */
+        .carousel-section {
+            background: linear-gradient(145deg, #07100c, #030706);
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px 0 40px;
+            user-select: none;
+        }
+        .carousel-main {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 80px;
+            min-height: 480px;
+        }
+        .carousel-card {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+            background: #0d1a14;
+            border: 1px solid #3c6e4a;
+        }
+        .carousel-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.3s;
+            background: #1a2a22;
+        }
+        .carousel-card:hover img {
+            transform: scale(1.02);
+        }
+        /* центральный слайд */
+        .center-card {
+            width: 720px;
+            max-width: 85vw;
+            margin: 0 auto;
+            z-index: 10;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7);
+            border: 2px solid #6eff86;
+        }
+        /* боковые размытые превью */
+        .side-card {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 240px;
+            max-width: 28vw;
+            filter: blur(5px);
+            opacity: 0.65;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #457a55;
+            background: #00000055;
+        }
+        .side-card:hover {
+            filter: blur(2px);
+            opacity: 0.9;
+            transform: translateY(-50%) scale(1.02);
+        }
+        .prev-card {
+            left: 20px;
+        }
+        .next-card {
+            right: 20px;
+        }
+        .side-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* кнопки навигации */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0f1f18cc;
+            backdrop-filter: blur(8px);
+            border: 1px solid #6eff86;
+            border-radius: 60px;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: 0.2s;
+            color: #c6ffcf;
+            font-size: 1.8rem;
+        }
+        .carousel-btn:hover {
+            background: #2a6e3f;
+            transform: translateY(-50%) scale(1.07);
+            color: white;
+        }
+        .btn-left {
+            left: -10px;
+        }
+        .btn-right {
+            right: -10px;
+        }
+        /* индикаторы */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #355a3e;
+            border-radius: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .dot.active {
+            background: #6eff86;
+            width: 32px;
+            box-shadow: 0 0 6px #83ff92;
+        }
+        .slide-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            background: #111e18aa;
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+            font-size: 1rem;
+        }
+        @media (max-width: 900px) {
+            .carousel-main {
+                margin: 0 20px;
+            }
+            .side-card {
+                display: none;
+            }
+            .carousel-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.4rem;
+            }
+            .btn-left { left: 0; }
+            .btn-right { right: 0; }
+            .center-card {
+                width: 95%;
+            }
+        }
+
+        /* Отзывы */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .testimonial {
+            background: #121a17;
+            padding: 28px;
+            border-radius: 28px;
+            border-left: 5px solid #3acf5c;
+        }
+        .testimonial i.fa-quote-left {
+            color: #4caf50;
+            font-size: 1.8rem;
+            opacity: 0.6;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user img {
+            width: 44px;
+            height: 44px;
+            background: #2e7d32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #20332a;
+            color: #7b8f89;
+        }
+        .info-note {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            background: #1e2a24;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: #b9f5c4;
+        }
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-stats { justify-content: center; }
+            h2 { font-size: 2rem; }
+            .gameplay-showcase { grid-template-columns: 1fr; }
+            .navbar { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header style="background: #070b09cc; backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #2a4e38;">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <i class="fas fa-cube"></i> 
+                <span>Mine<span style="color:#6eff86">Craft</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Возможности</a>
+                <a href="#gameplay">Геймплей</a>
+                <a href="#gallery">Галерея</a>
+                <a href="#reviews">Отзывы</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content fade-up">
+                    <h1 class="hero-title">Строй, выживай, <br><span>исследуй без границ</span></h1>
+                    <p class="hero-desc">Minecraft — это не просто игра, это вселенная, где каждый кубик становится частью вашего приключения. Открой для себя бесконечные миры, сражайся с монстрами и создавай невозможное.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item"><h3>300M+</h3><span>игроков</span></div>
+                        <div class="stat-item"><h3>∞</h3><span>миров</span></div>
+                        <div class="stat-item"><h3>100+</h3><span>биомов</span></div>
+                    </div>
+                    <div class="info-note"><i class="fas fa-gamepad"></i> 10 эпических сцен в галерее — листай!</div>
+                </div>
+                <div class="pixel-art fade-up">
+                    <i class="fas fa-dragon"></i>
+                    <i class="fas fa-tree" style="margin:0 10px"></i>
+                    <i class="fas fa-pickaxe"></i>
+                    <p style="margin-top: 20px; font-weight: bold;">Ваше приключение начинается здесь</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Особенности -->
+    <section id="features">
+        <div class="container">
+            <h2 class="fade-up">Почему миллионы выбирают Minecraft</h2>
+            <div class="section-sub fade-up">Творчество, выживание, мультиплеер — всё в одном блоке</div>
+            <div class="features-grid">
+                <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-hammer"></i></div><h3>Безграничное творчество</h3><p>Строй замки, города, механизмы из красного камня.</p></div>
+                <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div><h3>Режимы на любой вкус</h3><p>Выживание, креатив, хардкор, приключения.</p></div>
+                <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>Мультиплеер и сервера</h3><p>Играй с друзьями, участвуй в PvP-битвах.</p></div>
+                <div class="feature-card fade-up"><div class="feature-icon"><i class="fas fa-cubes"></i></div><h3>Моды и кастомизейшн</h3><p>Тысячи модов, текстурпаков и карт.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Геймплейные блоки -->
+    <section id="gameplay" style="background: #0a100e;">
+        <div class="container">
+            <h2 class="fade-up">Погружение в блоковый мир</h2>
+            <div class="section-sub fade-up">Ключевые механики, которые затягивают с первого дня</div>
+            <div class="gameplay-showcase">
+                <div class="game-card fade-up"><div class="game-img">⛰️</div><h4>Исследование биомов</h4><p>От пустынь и джунглей до багровых лесов Нижнего мира.</p></div>
+                <div class="game-card fade-up"><div class="game-img">⚔️</div><h4>Сражения и защита</h4><p>Столкнись с криперами, скелетами, Эндер-драконом.</p></div>
+                <div class="game-card fade-up"><div class="game-img">💎</div><h4>Добыча и крафтинг</h4><p>Шахты, алмазы, зачарование — стань непобедимым.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ С 10 ВСТРОЕННЫМИ КАРТИНКАМИ (SVG-сцены) -->
+    <section id="gallery" class="carousel-section">
+        <div class="container">
+            <h2 class="fade-up">Галерея удивительных миров</h2>
+            <div class="section-sub fade-up">Листайте эпичные кадры из игры — строительство, сражения и живописные биомы</div>
+        </div>
+        <div class="carousel-container">
+            <div class="carousel-main" id="carouselMain">
+                <div class="center-card carousel-card" id="centerImageContainer">
+                    <img id="mainCarouselImg" src="" alt="Minecraft scene">
+                </div>
+                <div class="side-card prev-card" id="prevSideCard">
+                    <img id="prevImg" src="" alt="prev">
+                </div>
+                <div class="side-card next-card" id="nextSideCard">
+                    <img id="nextImg" src="" alt="next">
+                </div>
+                <div class="carousel-btn btn-left" id="carouselPrevBtn"><i class="fas fa-chevron-left"></i></div>
+                <div class="carousel-btn btn-right" id="carouselNextBtn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <div style="text-align: center; margin-top: 16px;"><span class="slide-caption" id="slideCaption"></span></div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section id="reviews">
+        <div class="container">
+            <h2 class="fade-up">💬 Что говорят игроки</h2>
+            <div class="section-sub fade-up">Более 10 000 положительных отзывов в этом месяце</div>
+            <div class="testimonials-grid">
+                <div class="testimonial fade-up"><i class="fas fa-quote-left"></i><p>«Огромное комьюнити и безграничные возможности для творчества — игра не надоедает никогда!»</p><div class="user"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z'/%3E%3C/svg%3E"><div><strong>Алексей Крафт</strong><br>⭐ 5 лет в игре</div></div></div>
+                <div class="testimonial fade-up"><i class="fas fa-quote-left"></i><p>«Идеальная песочница для совместной игры с друзьями. Постройка огромного замка заняла у нас месяц!»</p><div class="user"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z'/%3E%3C/svg%3E"><div><strong>Мария BlockHead</strong><br>⭐ архитектор</div></div></div>
+                <div class="testimonial fade-up"><i class="fas fa-quote-left"></i><p>«Моды и обновления делают игру свежей даже спустя 10 лет. Каждый найдет свой стиль»</p><div class="user"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z'/%3E%3C/svg%3E"><div><strong>Дмитрий Майнер</strong><br>⭐ стример</div></div></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;"><i class="fas fa-cube"></i> Minecraft</div>
+        <p>© 2025 Вселенная Minecraft. Официальный фан-лендинг. Mojang Studios и Minecraft являются зарегистрированными товарными знаками.</p>
+    </div>
+</footer>
+
+<script>
+    // 10 ВСТРОЕННЫХ КАРТИНОК в формате DataURI (SVG) — стилизованные сцены в духе Minecraft.
+    // Работают без интернета, всегда отображаются.
+    const galleryImages = [
+        { url: "image/img_0771.png"},
+        { url: "image/img_0772.png"},
+        { url: "image/img_0773.png"},
+        { url: "image/img_0774.png"},
+        { url: "image/img_0775.png"},
+        { url: "image/img_6635.png"},
+        { url: "image/img_6658.png"},
+        { url: "image/img_6659.png"},
+        { url: "image/img_6661.png"},
+    ];
+
+    let currentIndex = 0;
+    const total = galleryImages.length;
+
+    const mainImg = document.getElementById('mainCarouselImg');
+    const prevImgElem = document.getElementById('prevImg');
+    const nextImgElem = document.getElementById('nextImg');
+    const prevBtn = document.getElementById('carouselPrevBtn');
+    const nextBtn = document.getElementById('carouselNextBtn');
+    const dotsContainer = document.getElementById('carouselDots');
+    const captionSpan = document.getElementById('slideCaption');
+
+    function updateCarousel() {
+        mainImg.src = galleryImages[currentIndex].url;
+        mainImg.alt = galleryImages[currentIndex].caption;
+        captionSpan.textContent = galleryImages[currentIndex].caption;
+        
+        const prevIndex = (currentIndex - 1 + total) % total;
+        prevImgElem.src = galleryImages[prevIndex].url;
+        const nextIndex = (currentIndex + 1) % total;
+        nextImgElem.src = galleryImages[nextIndex].url;
+        
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            if (idx === currentIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    }
+
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < total; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === currentIndex) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateCarousel();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function nextSlide() { currentIndex = (currentIndex + 1) % total; updateCarousel(); }
+    function prevSlide() { currentIndex = (currentIndex - 1 + total) % total; updateCarousel(); }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    document.getElementById('prevSideCard').addEventListener('click', prevSlide);
+    document.getElementById('nextSideCard').addEventListener('click', nextSlide);
+    
+    createDots();
+    updateCarousel();
+
+    // анимации
+    const faders = document.querySelectorAll('.fade-up');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+    const appearOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('appear'); appearOnScroll.unobserve(entry.target); } });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId.startsWith('#') && targetId !== '#') {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
